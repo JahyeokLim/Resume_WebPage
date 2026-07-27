@@ -3,7 +3,10 @@
 임베디드 소프트웨어 개발자 임재혁의 이력/프로젝트 소개 웹 사이트. Django 기반.
 
 자세한 요구사항은 [PRD.txt](PRD.txt), 작업 이력은 [CHANGELOG.txt](CHANGELOG.txt) 참고.
-전체 구조 한눈에 보기는 [docs/architecture.svg](docs/architecture.svg) 참고.
+
+## 프로젝트 구조
+
+![프로젝트 구조 다이어그램](docs/architecture.svg)
 
 ## 주요 기능
 
@@ -58,7 +61,7 @@ python3 manage.py runserver 0.0.0.0:8000
 
 일반 방문자에게는 로그인/편집 관련 메뉴가 전혀 보이지 않습니다.
 
-## 프로젝트 구조
+## 폴더 구조
 
 ```
 config/      Django 프로젝트 설정 (settings, urls)

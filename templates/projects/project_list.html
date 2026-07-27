@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "프로젝트" %} — Jaehyeok Lim{% endblock %}
+
+{% block content %}
+
+<div class="hero" style="padding-bottom: 40px;">
+  <div class="eyebrow">{% translate "프로젝트 소개" %}</div>
+  <h1>{% translate "참여했던 프로젝트들을 소개합니다." %}</h1>
+</div>
+
+<section class="block" style="border-bottom: none;">
+  <div class="label"></div>
+  <div class="content proj-list">
+    {% for project in projects %}
+    <a href="{{ project.get_absolute_url }}" class="p-row">
+      <span class="p-num">{{ forloop.counter|stringformat:"02d" }}</span>
+      {% if project.cover_image %}
+      <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="p-thumb">
+      {% else %}
+      <span class="p-thumb-placeholder"></span>
+      {% endif %}
+      <div>
+        <h3>{{ project.title }}{% if project.is_abstracted %}<span class="abstracted-badge">{% translate "추상화 공개" %}</span>{% endif %}</h3>
+        <p>{{ project.summary }}</p>
+        <div class="tags">
+          <span>{{ project.start_date|date:"Y.m" }} — {% if project.end_date %}{{ project.end_date|date:"Y.m" }}{% else %}{% translate "진행중" %}{% endif %}</span>
+          {% for tag in project.tech_tags %}<span>{{ tag }}</span>{% endfor %}
+        </div>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+    {% empty %}
+    <p>{% translate "등록된 프로젝트가 없습니다." %}</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "문의하기" %} — Jaehyeok Lim{% endblock %}
+
+{% block content %}
+
+<div class="hero" style="padding-bottom: 40px;">
+  <div class="eyebrow">{% translate "문의하기" %}</div>
+  <h1>{% translate "궁금한 점이나 제안이 있다면 편하게 남겨주세요." %}</h1>
+</div>
+
+<section class="block" style="border-bottom: none;">
+  <div class="label"></div>
+  <div class="content" style="max-width: 560px;">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+      <div class="form-field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+        <p class="form-errors">{{ field.errors|striptags }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+      <button type="submit" class="btn primary">{% translate "보내기" %}</button>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

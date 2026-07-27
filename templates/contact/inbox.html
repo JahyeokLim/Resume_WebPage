@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "문의함" %} — Jaehyeok Lim{% endblock %}
+
+{% block content %}
+
+<div class="hero" style="padding-bottom: 40px;">
+  <div class="eyebrow">{% translate "문의함" %}</div>
+  <h1>{% translate "받은 문의를 확인하세요." %}</h1>
+</div>
+
+<section class="block" style="border-bottom: none;">
+  <div class="label"></div>
+  <div class="content proj-list">
+    {% for msg in inbox_messages %}
+    <a href="{% url 'contact:inbox_detail' msg.pk %}" class="p-row">
+      <span class="p-num">{% if not msg.is_read %}●{% else %}○{% endif %}</span>
+      <div>
+        <h3>{{ msg.name }} <span style="font-weight:400; color:var(--ink-soft); font-size:0.85rem;">&lt;{{ msg.email }}&gt;</span></h3>
+        <p>{{ msg.message|truncatechars:80 }}</p>
+        <div class="tags"><span>{{ msg.created_at|date:"Y-m-d H:i" }}</span></div>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+    {% empty %}
+    <p>{% translate "받은 문의가 없습니다." %}</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

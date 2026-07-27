@@ -1,0 +1,82 @@
+{% load i18n static %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{% translate "임재혁 — Embedded Software Engineer" %}{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+<div class="grid-wrap">
+
+  <header class="top">
+    <a href="{% url 'profiles:home' %}" class="idx">JAEHYEOK LIM</a>
+    <nav>
+      <a href="{% url 'profiles:home' %}" class="{% if request.resolver_match.url_name == 'home' %}current{% endif %}">{% translate "홈" %}</a>
+      <a href="{% url 'projects:list' %}" class="{% if request.resolver_match.app_name == 'projects' %}current{% endif %}">{% translate "프로젝트" %}</a>
+      <a href="{% url 'contact:contact' %}" class="{% if request.resolver_match.app_name == 'contact' %}current{% endif %}">{% translate "문의" %}</a>
+      {% if request.user.is_staff %}
+      <a href="{% url 'contact:inbox' %}" class="inbox-link" aria-label="{% translate "문의함" %}">
+        <svg class="inbox-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 6.5h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11Z"/>
+          <path d="M3 6.5 12 13l9-6.5"/>
+        </svg>
+        {% if unread_inbox_count %}<span class="inbox-badge">{{ unread_inbox_count }}</span>{% endif %}
+      </a>
+      <a href="/admin/" class="edit-link">{% translate "편집" %}</a>
+      <form action="{% url 'admin:logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.path }}">
+        <button type="submit" class="logout-link">{% translate "로그아웃" %}</button>
+      </form>
+      {% endif %}
+
+      <form action="{% url 'set_language' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.path }}">
+        {% get_current_language as CURRENT_LANGUAGE %}
+        <button type="submit" name="language" value="{% if CURRENT_LANGUAGE == 'ko' %}en{% else %}ko{% endif %}" class="lang-toggle">
+          {% if CURRENT_LANGUAGE == 'ko' %}EN{% else %}KO{% endif %}
+        </button>
+      </form>
+
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="{% translate "다크모드 전환" %}">◐ {% translate "테마" %}</button>
+    </nav>
+  </header>
+
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% block content %}{% endblock %}
+
+  <footer class="bottom">
+    <span>&copy; 2026 Jaehyeok Lim</span>
+    <a href="/admin/login/?next={% url 'profiles:home' %}" class="admin-link">Admin</a>
+  </footer>
+
+</div>
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    var stored = localStorage.getItem('theme');
+    if (stored) root.setAttribute('data-theme', stored);
+    btn.addEventListener('click', function () {
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var current = root.getAttribute('data-theme') || (prefersDark ? 'dark' : 'light');
+      var next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+</script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

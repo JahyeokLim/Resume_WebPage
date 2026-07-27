@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="hero">
+  <p class="name-title">{{ profile.name }}</p>
+  <div class="eyebrow">{{ profile.role }}</div>
+  {% if profile.photo %}
+  <img src="{{ profile.photo.url }}" alt="{{ profile.name }}" class="hero-photo">
+  {% endif %}
+  <h1>{{ profile.tagline }}</h1>
+  <div class="meta-col">
+    <div><strong>{% translate "거주지" %}</strong>{{ profile.location }}</div>
+    {% if profile.phone %}<div><strong>{% translate "연락처" %}</strong>{{ profile.phone }}</div>{% endif %}
+    <div><strong>{% translate "이메일" %}</strong>{{ profile.email }}</div>
+    {% if profile.github_url %}<div><strong>GitHub</strong><a href="{{ profile.github_url }}">{{ profile.github_url }}</a></div>{% endif %}
+  </div>
+  <p class="lede">{{ profile.bio }}</p>
+</div>
+
+<section class="block">
+  <div class="label"><span class="num">01</span>{% translate "경력 · 학력" %}</div>
+  <div class="content">
+    {% for entry in timeline %}
+    <div class="tl-item">
+      <div class="yr">
+        {{ entry.start_date|date:"Y" }}—{% if entry.end_date %}{{ entry.end_date|date:"y" }}{% else %}{% translate "현재" %}{% endif %}
+      </div>
+      <div>
+        <h3>{{ entry.title }}</h3>
+        <p>{{ entry.description }}</p>
+      </div>
+    </div>
+    {% empty %}
+    <p>{% translate "등록된 경력/학력이 없습니다." %}</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="block">
+  <div class="label"><span class="num">02</span>{% translate "기술 스택" %}</div>
+  <div class="content">
+    <div class="stack-list">
+      {% for category in skill_categories %}
+      <div class="cat-group">
+        <div class="cat-name">{{ category.name }}</div>
+        {% for skill in category.skills.all %}
+        <div class="skill-row">{{ skill.name }}</div>
+        {% endfor %}
+      </div>
+      {% empty %}
+      <p>{% translate "등록된 기술 스택이 없습니다." %}</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="label"><span class="num">03</span>{% translate "대표 프로젝트" %}</div>
+  <div class="content proj-list">
+    {% for project in featured_projects %}
+    <a href="{{ project.get_absolute_url }}" class="p-row">
+      <span class="p-num">{{ forloop.counter|stringformat:"02d" }}</span>
+      {% if project.cover_image %}
+      <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="p-thumb">
+      {% else %}
+      <span class="p-thumb-placeholder"></span>
+      {% endif %}
+      <div>
+        <h3>{{ project.title }}{% if project.is_abstracted %}<span class="abstracted-badge">{% translate "추상화 공개" %}</span>{% endif %}</h3>
+        <p>{{ project.summary }}</p>
+        <div class="tags">
+          <span>{{ project.start_date|date:"Y.m" }} — {% if project.end_date %}{{ project.end_date|date:"Y.m" }}{% else %}{% translate "진행중" %}{% endif %}</span>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+    {% empty %}
+    <p>{% translate "등록된 프로젝트가 없습니다." %}</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="cta">
+  <div class="cta-inner">
+    <h2>{% translate "함께 이야기 나눠보고 싶다면." %}</h2>
+    <div class="btn-row">
+      {% if profile.resume_pdf %}
+      <a href="{{ profile.resume_pdf.url }}" class="btn primary" download>{% translate "이력서 PDF 다운로드" %}</a>
+      {% endif %}
+      <a href="{% url 'projects:list' %}" class="btn outline">{% translate "전체 프로젝트 보기" %}</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

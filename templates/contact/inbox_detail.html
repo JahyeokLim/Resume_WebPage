@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ contact_message.name }} — {% translate "문의함" %}{% endblock %}
+
+{% block content %}
+
+<div class="detail-hero">
+  <a href="{% url 'contact:inbox' %}" class="back-link">← {% translate "문의함으로" %}</a>
+  <h1>{{ contact_message.name }}</h1>
+  <div class="meta-row">
+    <span>{{ contact_message.email }}</span>
+    <span>{{ contact_message.created_at|date:"Y-m-d H:i" }}</span>
+  </div>
+</div>
+
+<section class="detail-section" style="border-bottom: none;">
+  <h2>{% translate "내용" %}</h2>
+  <div class="body-text">{{ contact_message.message }}</div>
+</section>
+
+{% endblock %}

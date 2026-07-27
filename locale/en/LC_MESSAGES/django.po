@@ -1,0 +1,129 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-27 00:00+0900\n"
+"PO-Revision-Date: 2026-07-27 00:00+0900\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "개요"
+msgstr "Overview"
+
+msgid "거주지"
+msgstr "Location"
+
+msgid "경력 · 학력"
+msgstr "Career & Education"
+
+msgid "궁금한 점이나 제안이 있다면 편하게 남겨주세요."
+msgstr "Feel free to reach out with any questions or ideas."
+
+msgid "기술 스택"
+msgstr "Tech Stack"
+
+msgid "다크모드 전환"
+msgstr "Toggle dark mode"
+
+msgid "대표 프로젝트"
+msgstr "Featured Projects"
+
+msgid "편집"
+msgstr "Edit"
+
+msgid "로그아웃"
+msgstr "Log out"
+
+msgid "등록된 경력/학력이 없습니다."
+msgstr "No career or education entries yet."
+
+msgid "등록된 기술 스택이 없습니다."
+msgstr "No tech stack entries yet."
+
+msgid "등록된 프로젝트가 없습니다."
+msgstr "No projects yet."
+
+msgid "문의"
+msgstr "Contact"
+
+msgid "문의하기"
+msgstr "Contact"
+
+msgid "보내기"
+msgstr "Send"
+
+msgid "시스템 구조 / 아키텍처"
+msgstr "System Architecture"
+
+msgid "아키텍처 다이어그램"
+msgstr "Architecture diagram"
+
+msgid "역할 / 담당 범위"
+msgstr "Role & Responsibilities"
+
+msgid "연락처"
+msgstr "Phone"
+
+msgid "이력서 PDF 다운로드"
+msgstr "Download Resume (PDF)"
+
+msgid "이메일"
+msgstr "Email"
+
+msgid "이미지 / 동영상"
+msgstr "Images / Videos"
+
+msgid "임재혁 — Embedded Software Engineer"
+msgstr "Jaehyeok Lim — Embedded Software Engineer"
+
+msgid "전체 프로젝트 보기"
+msgstr "View All Projects"
+
+msgid "전체 프로젝트로"
+msgstr "Back to all projects"
+
+msgid "진행중"
+msgstr "Ongoing"
+
+msgid "참여했던 프로젝트들을 소개합니다."
+msgstr "A showcase of the projects I have worked on."
+
+msgid "추상화 공개"
+msgstr "Abstracted"
+
+msgid "테마"
+msgstr "Theme"
+
+msgid "프로젝트"
+msgstr "Projects"
+
+msgid "프로젝트 소개"
+msgstr "Projects"
+
+msgid "함께 이야기 나눠보고 싶다면."
+msgstr "Let's talk."
+
+msgid "현재"
+msgstr "Present"
+
+msgid "홈"
+msgstr "Home"
+
+msgid "문의함"
+msgstr "Inbox"
+
+msgid "받은 문의를 확인하세요."
+msgstr "Review the messages you have received."
+
+msgid "받은 문의가 없습니다."
+msgstr "No messages yet."
+
+msgid "문의함으로"
+msgstr "Back to inbox"
+
+msgid "내용"
+msgstr "Message"

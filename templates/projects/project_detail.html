@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ project.title }} — Jaehyeok Lim{% endblock %}
+
+{% block content %}
+
+<div class="detail-hero">
+  <a href="{% url 'projects:list' %}" class="back-link">← {% translate "전체 프로젝트로" %}</a>
+  <h1>{{ project.title }}{% if project.is_abstracted %}<span class="abstracted-badge">{% translate "추상화 공개" %}</span>{% endif %}</h1>
+  <div class="meta-row">
+    <span>{{ project.start_date|date:"Y.m" }} — {% if project.end_date %}{{ project.end_date|date:"Y.m" }}{% else %}{% translate "진행중" %}{% endif %}</span>
+  </div>
+  {% if project.cover_image %}
+  <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="cover">
+  {% endif %}
+  <div class="tags">
+    {% for tag in project.tech_tags %}<span>{{ tag }}</span>{% endfor %}
+  </div>
+</div>
+
+<section class="detail-section">
+  <h2>{% translate "개요" %}</h2>
+  <div class="body-text">{{ project.overview }}</div>
+</section>
+
+<section class="detail-section">
+  <h2>{% translate "역할 / 담당 범위" %}</h2>
+  <div class="body-text">{{ project.role }}</div>
+</section>
+
+{% if project.architecture %}
+<section class="detail-section">
+  <h2>{% translate "시스템 구조 / 아키텍처" %}</h2>
+  <div class="body-text">{{ project.architecture }}</div>
+  {% if project.architecture_diagram %}
+  <img src="{{ project.architecture_diagram.url }}" alt="{% translate "아키텍처 다이어그램" %}" class="diagram">
+  {% endif %}
+</section>
+{% endif %}
+
+{% if project.media_items.all %}
+<section class="detail-section" style="border-bottom: none;">
+  <h2>{% translate "이미지 / 동영상" %}</h2>
+  <div class="media-grid">
+    {% for media in project.media_items.all %}
+    <figure>
+      {% if media.media_type == 'video' and media.video_url %}
+      <iframe src="{{ media.video_url }}" title="{{ media.caption }}" allowfullscreen></iframe>
+      {% elif media.image %}
+      <img src="{{ media.image.url }}" alt="{{ media.caption }}">
+      {% endif %}
+      {% if media.caption %}<figcaption>{{ media.caption }}</figcaption>{% endif %}
+    </figure>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

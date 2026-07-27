@@ -1,0 +1,155 @@
+<svg viewBox="0 0 1240 860" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica Neue, Arial, sans-serif">
+  <style>
+    .bg { fill: #ffffff; }
+    .lane-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; fill: #6b6e73; font-weight: 700; }
+    .box { fill: #ffffff; stroke: #dcdde0; stroke-width: 1; }
+    .box-title { fill: #111214; font-size: 13.5px; font-weight: 700; }
+    .box-sub { fill: #6b6e73; font-size: 11px; }
+    .box-mono { fill: #6b6e73; font-size: 10.5px; font-family: 'Courier New', monospace; }
+    .app-box { fill: #ffffff; stroke: #c23b23; stroke-width: 1.4; }
+    .app-title { fill: #c23b23; font-size: 14px; font-weight: 700; }
+    .conn { stroke: #b8bcc0; stroke-width: 1.2; fill: none; }
+    .divider { stroke: #dcdde0; stroke-width: 1; stroke-dasharray: 2 4; }
+    .section-title { fill: #111214; font-size: 20px; font-weight: 700; }
+    .section-sub { fill: #6b6e73; font-size: 12.5px; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="1240" height="860"/>
+
+  <text x="40" y="40" class="section-title">임재혁 포트폴리오 — 프로젝트 구조</text>
+  <text x="40" y="62" class="section-sub">Django 요청 흐름: URL → 앱(뷰/모델) → 템플릿/스타일 → 브라우저</text>
+
+  <text x="40" y="104" class="lane-label">1. 진입점 · 관리자</text>
+  <text x="290" y="104" class="lane-label">2. 앱 (URL · View · Model)</text>
+  <text x="760" y="104" class="lane-label">3. 화면 (Template · Static)</text>
+  <text x="1010" y="104" class="lane-label">4. 데이터</text>
+
+  <line x1="270" y1="86" x2="270" y2="820" class="divider"/>
+  <line x1="740" y1="86" x2="740" y2="820" class="divider"/>
+  <line x1="990" y1="86" x2="990" y2="820" class="divider"/>
+
+  <!-- ============ Lane 1 ============ -->
+  <rect class="box" x="30" y="126" width="220" height="86" rx="3"/>
+  <text x="46" y="150" class="box-title">config/urls.py</text>
+  <text x="46" y="168" class="box-sub">i18n_patterns()</text>
+  <text x="46" y="184" class="box-mono">/ko/... , /en/...</text>
+  <text x="46" y="199" class="box-mono">/media/...</text>
+
+  <path class="conn" d="M 250 169 H 285" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="30" y="330" width="220" height="120" rx="3" stroke-dasharray="3 3"/>
+  <text x="46" y="354" class="box-title">Django Admin</text>
+  <text x="46" y="372" class="box-sub">/admin/</text>
+  <text x="46" y="394" class="box-mono">관리자 로그인 후</text>
+  <text x="46" y="409" class="box-mono">헤더에 "편집"·"로그아웃" 노출</text>
+  <text x="46" y="431" class="box-mono">일반 방문자에겐 안 보임</text>
+
+  <path class="conn" d="M 250 390 H 285" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="30" y="700" width="220" height="90" rx="3"/>
+  <text x="46" y="725" class="box-title">방문자 브라우저</text>
+  <text x="46" y="743" class="box-sub">면접관 · 채용 담당자</text>
+  <text x="46" y="759" class="box-mono">라이트 · 다크 모드</text>
+  <text x="46" y="774" class="box-mono">한국어 · 영어</text>
+
+  <!-- ============ Lane 2: apps ============ -->
+
+  <rect class="app-box" x="290" y="126" width="430" height="150" rx="3"/>
+  <text x="308" y="151" class="app-title">profiles</text>
+  <text x="308" y="168" class="box-sub">홈 · 프로필 · 경력/학력 · 기술 스택</text>
+  <text x="308" y="192" class="box-mono">views.home()</text>
+  <text x="308" y="207" class="box-mono">models: Profile, TimelineEntry,</text>
+  <text x="308" y="220" class="box-mono">        SkillCategory, Skill</text>
+  <text x="308" y="242" class="box-mono">admin.py — Profile 싱글턴</text>
+  <text x="308" y="257" class="box-mono">management/commands/seed_demo.py</text>
+
+  <path class="conn" d="M 720 201 H 750" marker-end="url(#arrow)"/>
+
+  <rect class="app-box" x="290" y="300" width="430" height="150" rx="3"/>
+  <text x="308" y="325" class="app-title">projects</text>
+  <text x="308" y="342" class="box-sub">프로젝트 소개 (목록 · 상세)</text>
+  <text x="308" y="366" class="box-mono">views.project_list() / project_detail()</text>
+  <text x="308" y="381" class="box-mono">models: Project (visibility: full/abstracted),</text>
+  <text x="308" y="394" class="box-mono">        ProjectMedia</text>
+  <text x="308" y="416" class="box-mono">slug 기반 상세 URL</text>
+  <text x="308" y="431" class="box-mono">cover_image, architecture_diagram</text>
+
+  <path class="conn" d="M 720 375 H 750" marker-end="url(#arrow)"/>
+
+  <rect class="app-box" x="290" y="474" width="430" height="170" rx="3"/>
+  <text x="308" y="499" class="app-title">contact</text>
+  <text x="308" y="516" class="box-sub">문의하기 + 관리자 전용 문의함(Inbox)</text>
+  <text x="308" y="540" class="box-mono">views.contact_view() — 방문자용, 로그인 불필요</text>
+  <text x="308" y="555" class="box-mono">views.inbox_view() / inbox_detail_view()</text>
+  <text x="308" y="568" class="box-mono">        — @staff_member_required</text>
+  <text x="308" y="590" class="box-mono">models: ContactMessage (is_read)</text>
+  <text x="308" y="605" class="box-mono">context_processors.unread_inbox_count</text>
+  <text x="308" y="620" class="box-mono">        → 헤더 배지에 표시</text>
+
+  <path class="conn" d="M 720 559 H 750" marker-end="url(#arrow)"/>
+
+  <!-- Admin manages all three apps via one trunk line -->
+  <path class="conn" d="M 250 390 V 390" />
+  <path class="conn" d="M 265 390 V 200 H 285" marker-end="url(#arrow)"/>
+  <path class="conn" d="M 265 390 V 559 H 285" marker-end="url(#arrow)"/>
+  <path class="conn" d="M 265 390 H 285" marker-end="url(#arrow)"/>
+
+  <!-- ============ Lane 3: templates/static ============ -->
+  <rect class="box" x="750" y="126" width="230" height="86" rx="3"/>
+  <text x="766" y="149" class="box-title">templates/base.html</text>
+  <text x="766" y="167" class="box-sub">공통 헤더 · 메뉴 · 푸터</text>
+  <text x="766" y="182" class="box-mono">언어전환 · 테마토글</text>
+  <text x="766" y="197" class="box-mono">문의함 배지 · 편집 링크</text>
+
+  <rect class="box" x="750" y="230" width="230" height="56" rx="3"/>
+  <text x="766" y="252" class="box-title">profiles/home.html</text>
+  <text x="766" y="270" class="box-mono">히어로 · 타임라인 · 스킬</text>
+
+  <rect class="box" x="750" y="300" width="230" height="56" rx="3"/>
+  <text x="766" y="322" class="box-title">projects/*.html</text>
+  <text x="766" y="340" class="box-mono">목록(썸네일·기간) · 상세</text>
+
+  <rect class="box" x="750" y="370" width="230" height="56" rx="3"/>
+  <text x="766" y="392" class="box-title">contact/*.html</text>
+  <text x="766" y="410" class="box-mono">문의 폼 · inbox 목록/상세</text>
+
+  <rect class="box" x="750" y="440" width="230" height="72" rx="3"/>
+  <text x="766" y="462" class="box-title">static/css/main.css</text>
+  <text x="766" y="480" class="box-sub">스위스 그리드 테마</text>
+  <text x="766" y="495" class="box-mono">라이트/다크 CSS 변수</text>
+
+  <rect class="box" x="750" y="526" width="230" height="56" rx="3"/>
+  <text x="766" y="548" class="box-title">locale/en/LC_MESSAGES</text>
+  <text x="766" y="566" class="box-mono">django.po/.mo — UI 문구 번역</text>
+
+  <!-- templates render down into browser -->
+  <path class="conn" d="M 865 212 V 230" marker-end="url(#arrow)"/>
+  <path class="conn" d="M 865 286 V 300" marker-end="url(#arrow)"/>
+  <path class="conn" d="M 865 356 V 370" marker-end="url(#arrow)"/>
+  <path class="conn" d="M 865 582 V 700" />
+  <path class="conn" d="M 865 700 H 250" marker-end="url(#arrow)"/>
+
+  <!-- ============ Lane 4: data ============ -->
+  <rect class="box" x="1000" y="146" width="200" height="66" rx="3"/>
+  <text x="1016" y="170" class="box-title">db.sqlite3</text>
+  <text x="1016" y="188" class="box-mono">Profile / Project / …</text>
+
+  <rect class="box" x="1000" y="230" width="200" height="66" rx="3"/>
+  <text x="1016" y="254" class="box-title">media/</text>
+  <text x="1016" y="272" class="box-mono">사진 · PDF · 첨부</text>
+
+  <path class="conn" d="M 720 201 C 950 201, 950 176, 998 176" marker-end="url(#arrow)"/>
+  <path class="conn" d="M 720 375 C 950 375, 950 260, 998 262" marker-end="url(#arrow)"/>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b8bcc0"/>
+    </marker>
+  </defs>
+
+  <!-- Legend -->
+  <rect x="30" y="810" width="14" height="14" class="app-box"/>
+  <text x="50" y="821" class="box-sub">Django 앱</text>
+  <rect x="150" y="810" width="14" height="14" class="box"/>
+  <text x="170" y="821" class="box-sub">템플릿 / 정적 파일 / 데이터 / Admin / 브라우저</text>
+</svg>
